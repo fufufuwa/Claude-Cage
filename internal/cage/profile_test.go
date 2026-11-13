@@ -53,6 +53,9 @@ func TestRunningRecordRejectsReusedPID(t *testing.T) {
 	if reused.alive() {
 		t.Fatal("record from an earlier process with the same PID was treated as running")
 	}
+	if ProcessStartMatches(-1, record.Started) {
+		t.Fatal("unreadable process start time matched an explicit recorded start token")
+	}
 	b, _ = json.Marshal(reused)
 	if err := os.WriteFile(filepath.Join(instance, "cage-running.json"), b, 0600); err != nil {
 		t.Fatal(err)

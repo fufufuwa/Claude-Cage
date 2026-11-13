@@ -23,7 +23,7 @@ func processExists(pid int) bool {
 	}
 	h, err := windows.OpenProcess(windows.PROCESS_QUERY_LIMITED_INFORMATION, false, uint32(pid))
 	if err != nil {
-		return !errors.Is(err, windows.ERROR_INVALID_PARAMETER)
+		return false
 	}
 	defer windows.CloseHandle(h)
 	var code uint32

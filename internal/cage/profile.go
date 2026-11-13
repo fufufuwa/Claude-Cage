@@ -27,7 +27,10 @@ func ProcessStartMatches(pid int, started string) bool {
 		return true
 	}
 	current := processStartToken(pid)
-	return current == "" || current == started
+	if current == "" {
+		return processStartToken(os.Getpid()) == ""
+	}
+	return current == started
 }
 
 func (r runningProfile) alive() bool {
